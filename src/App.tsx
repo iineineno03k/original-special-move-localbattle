@@ -25,12 +25,12 @@ function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const roomCode = urlParams.get("roomCode");
 
-  const eventUrl = 'http://localhost:8080/rooms/stream/' + roomCode
-  const roomApiUrl = 'http://localhost:8080/rooms/' + roomCode
-  const battlerApiUrl = 'http://localhost:8080/rooms/battler'
-  const judgerApiUrl = 'http://localhost:8080/rooms/judger'
-  const deckApiUrl = 'http://localhost:8080/get-specialmove-deck';
-  const getDeckUrl = 'http://localhost:8080/get-deck-localbattle/' + roomCode
+  const eventUrl = 'https://original-specialmove.onrender.com/rooms/stream/' + roomCode
+  const roomApiUrl = 'https://original-specialmove.onrender.com/rooms/' + roomCode
+  const battlerApiUrl = 'https://original-specialmove.onrender.com/rooms/battler'
+  const judgerApiUrl = 'https://original-specialmove.onrender.com/rooms/judger'
+  const deckApiUrl = 'https://original-specialmove.onrender.com/get-specialmove-deck';
+  const getDeckUrl = 'https://original-specialmove.onrender.com/get-deck-localbattle/' + roomCode
 
   const handleShare = () => {
     const url = "https://liff.line.me/2001116233-Xw8xde2q?roomCode=" + roomCode

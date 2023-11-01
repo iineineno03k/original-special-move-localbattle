@@ -26,7 +26,7 @@ const SpecialMoveCard: React.FC<Props> = ({ myGallary, data, idToken, onWin }) =
     const isAlreadyFavorited = myGallary.some(item => item.id === data.id);
     const [favorited, setFavorited] = useState(isAlreadyFavorited);
 
-    const favoriteApiUrl = 'http://localhost:8080/regist-gallary';
+    const favoriteApiUrl = 'https://original-specialmove.onrender.com/regist-gallary';
 
     const handleOpen = () => {
         setOpen(true);

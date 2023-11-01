@@ -24,8 +24,8 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
     const [showModal, setShowModal] = useState(false);
     const [winner, setWinner] = useState<string>('');
 
-    const gallaryApiUrl = 'http://localhost:8080/get-specialmove';
-    const judgeApiUrl = 'http://localhost:8080/judge/' + roomData.roomCode
+    const gallaryApiUrl = 'https://original-specialmove.onrender.com/get-specialmove';
+    const judgeApiUrl = 'https://original-specialmove.onrender.com/judge/' + roomData.roomCode
 
     const handleWinFromCard = async () => {
         setFadeReversedCard(true);
