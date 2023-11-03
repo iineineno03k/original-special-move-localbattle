@@ -36,6 +36,7 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
   };
 
   useEffect(() => {
+    console.log("バトルを開始します。")
     //自分のデッキを手前側に配置する。
     if (role === "battlerA") {
       setDeckA(specialMoveDecks[roomData.buserName])
