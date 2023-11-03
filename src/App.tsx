@@ -209,30 +209,32 @@ function App() {
       setLoading(true);
 
       (async () => {
-        const response = await fetch(getDeckUrl);
-        if (!response.ok) {
-          console.log("対戦者のデッキを取得できませんでした。")
-          throw new Error('Network response was not ok');
+        try {
+          const response = await fetch(getDeckUrl);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          setSpecialMoveDecks(data); // デッキデータ設定
+          console.log("デッキの内容は:", data); // オブジェクトを直接ログに記録
+        } catch (error) {
+          console.error("デッキの取得中にエラーが発生しました:", error);
+        } finally {
+          setLoading(false);
         }
-        const data = await response.json();
-        setSpecialMoveDecks(data);
-      });
-      console.log("デッキの内容は:" + specialMoveDecks);
-
-      if (role === 'judger') {
-        console.log("viewがjudgeになります")
-        setView('judge');
-      } else if (role === 'battlerA' || role === 'battlerB') {
-        console.log("viewがwatchになります")
-        setView('watch');
-      }
-      setLoading(false);
+      })();
     }
   }, [roomData]);
 
   useEffect(() => {
-
-  }, [judgeResult]);
+    if (role === 'judger') {
+      console.log("viewがjudgeになります");
+      setView('judge');
+    } else if (role === 'battlerA' || role === 'battlerB') {
+      console.log("viewがwatchになります");
+      setView('watch');
+    }
+  }, [specialMoveDecks]);
 
   const renderPage = () => {
     switch (view) {
