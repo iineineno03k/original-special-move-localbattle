@@ -127,13 +127,17 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
                 </div>
             ) : (
                 <>
-                    <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
-                        <SpecialMoveCard key={deckA[0].id} myGallary={myGallary} data={deckA[0]} idToken={idToken} onWin={handleWinFromCard} />
-                    </motion.div>
+                    {deckA[0] && (
+                        <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
+                            <SpecialMoveCard key={deckA[0].id} myGallary={myGallary} data={deckA[0]} idToken={idToken} onWin={handleWinFromCard} />
+                        </motion.div>
+                    )}
                     <div style={{ fontSize: '24px', fontWeight: 'bold', backgroundColor: 'white', borderRadius: '50%', padding: '10px 20px', margin: '20px 0', textAlign: 'center' }}>VS</div>
-                    <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
-                        <SpecialMoveCardReversed key={deckB[0].id} myGallary={myGallary} data={deckB[0]} idToken={idToken} onWin={handleWinFromReversedCard} />
-                    </motion.div>
+                    {deckB[0] && (
+                        <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
+                            <SpecialMoveCardReversed key={deckB[0].id} myGallary={myGallary} data={deckB[0]} idToken={idToken} onWin={handleWinFromReversedCard} />
+                        </motion.div>
+                    )}
 
                     <Dialog open={showModal} onClose={() => setShowModal(false)}>
                         <DialogTitle>🎉 おめでとうございます！ 🎉</DialogTitle>

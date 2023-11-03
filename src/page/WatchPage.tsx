@@ -96,13 +96,17 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', justifyContent: 'center' }}>
-      <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
-        <SpecialMoveCardWatch key={deckA[0].id} data={deckA[0]} />
-      </motion.div>
+      {deckA[0] && (
+        <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
+          <SpecialMoveCardWatch key={deckA[0].id} data={deckA[0]} />
+        </motion.div>
+      )}
       <div style={{ fontSize: '24px', fontWeight: 'bold', backgroundColor: 'white', borderRadius: '50%', padding: '10px 20px', margin: '20px 0', textAlign: 'center' }}>VS</div>
-      <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
-        <SpecialMoveCardReversedWatch key={deckB[0].id} data={deckB[0]} />
-      </motion.div>
+      {deckB[0] && (
+        <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
+          <SpecialMoveCardReversedWatch key={deckB[0].id} data={deckB[0]} />
+        </motion.div>
+      )}
 
       <Dialog open={showModal} onClose={() => setShowModal(false)}>
         <DialogTitle>🎉 おめでとうございます！ 🎉</DialogTitle>
