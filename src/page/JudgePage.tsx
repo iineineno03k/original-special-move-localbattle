@@ -16,8 +16,8 @@ interface Props {
 
 const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => {
     const [myGallary, setMyGallary] = useState<SpecialMoveDto[]>([]);
-    const [deckA, setDeckA] = useState(specialMoveDecks[roomData.auserName]);
-    const [deckB, setDeckB] = useState(specialMoveDecks[roomData.buserName]);
+    const [deckA, setDeckA] = useState<SpecialMoveDeckDto[]>([]);
+    const [deckB, setDeckB] = useState<SpecialMoveDeckDto[]>([]);
     const [loading, setLoading] = useState(true);
     const [fadeCard, setFadeCard] = useState(false);
     const [fadeReversedCard, setFadeReversedCard] = useState(false);
@@ -73,6 +73,8 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
     };
 
     useEffect(() => {
+        setDeckA(specialMoveDecks[roomData.auserName]);
+        setDeckB(specialMoveDecks[roomData.buserName]);
         const formData = new FormData();
         formData.append('idToken', idToken);
 

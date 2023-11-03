@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { RoomDto, SpecialMoveDecks } from '../types'
+import { RoomDto, SpecialMoveDeckDto, SpecialMoveDecks } from '../types'
 import liff from '@line/liff'
 import { motion } from 'framer-motion'
 import SpecialMoveCardWatch from '../component/SpecialMoveCardWatch'
@@ -16,8 +16,8 @@ interface Props {
 }
 
 const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, resultEventCounter }) => {
-  const [deckA, setDeckA] = useState([]);
-  const [deckB, setDeckB] = useState([]);
+  const [deckA, setDeckA] = useState<SpecialMoveDeckDto[]>([]);
+  const [deckB, setDeckB] = useState<SpecialMoveDeckDto[]>([]);
   const [fadeCard, setFadeCard] = useState(false);
   const [fadeReversedCard, setFadeReversedCard] = useState(false);
   const [showModal, setShowModal] = useState(false);
