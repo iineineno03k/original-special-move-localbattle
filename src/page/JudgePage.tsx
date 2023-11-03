@@ -88,6 +88,8 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
             } finally {
                 console.log("あなたはjudgerです")
                 setLoading(false);
+                console.log(deckA);
+                console.log(deckB);
             }
         })
     }, []);

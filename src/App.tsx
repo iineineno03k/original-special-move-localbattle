@@ -216,6 +216,7 @@ function App() {
         }
         const data = await response.json();
         setSpecialMoveDecks(data);
+        console.log(specialMoveDecks);
       });
 
       if (role === 'judger') {
