@@ -96,13 +96,13 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', justifyContent: 'center' }}>
-      {deckA[0] && (
+      {deckA.length > 0 && (
         <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
           <SpecialMoveCardWatch key={deckA[0].id} data={deckA[0]} />
         </motion.div>
       )}
       <div style={{ fontSize: '24px', fontWeight: 'bold', backgroundColor: 'white', borderRadius: '50%', padding: '10px 20px', margin: '20px 0', textAlign: 'center' }}>VS</div>
-      {deckB[0] && (
+      {deckB.length > 0 && (
         <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
           <SpecialMoveCardReversedWatch key={deckB[0].id} data={deckB[0]} />
         </motion.div>
