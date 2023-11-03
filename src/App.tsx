@@ -216,8 +216,8 @@ function App() {
         }
         const data = await response.json();
         setSpecialMoveDecks(data);
-        console.log(specialMoveDecks);
       });
+      console.log("デッキの内容は:" + specialMoveDecks);
 
       if (role === 'judger') {
         console.log("viewがjudgeになります")
