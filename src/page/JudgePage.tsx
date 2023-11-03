@@ -92,7 +92,7 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
                 console.log("デッキBの内容は" + deckB);
             }
         })
-    }, []);
+    }, [specialMoveDecks]);
 
     useEffect(() => {
         if (deckA.length == 0) {
