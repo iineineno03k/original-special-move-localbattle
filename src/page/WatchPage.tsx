@@ -16,8 +16,8 @@ interface Props {
 }
 
 const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, resultEventCounter }) => {
-  const [deckA, setDeckA] = useState<SpecialMoveDeckDto[]>([]);
-  const [deckB, setDeckB] = useState<SpecialMoveDeckDto[]>([]);
+  const [deckA, setDeckA] = useState<SpecialMoveDeckDto[] | undefined>();
+  const [deckB, setDeckB] = useState<SpecialMoveDeckDto[] | undefined>();
   const [fadeCard, setFadeCard] = useState(false);
   const [fadeReversedCard, setFadeReversedCard] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -51,45 +51,69 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
 
   useEffect(() => {
     if (result === "A") {
-      setFadeReversedCard(true);
-      setTimeout(() => {
-        const newData = [...deckB];
-        newData.splice(0, 1);
-        setDeckB(newData);
-        setFadeReversedCard(false);
-      }, 350);
+      if (role == "battlerA") {
+        setFadeCard(true);
+        setTimeout(() => {
+          const newData = [...deckA];
+          newData.splice(0, 1);
+          setDeckA(newData);
+          setFadeCard(false);
+        }, 350);
+      } else if (role === "battlerB") {
+        setFadeReversedCard(true);
+        setTimeout(() => {
+          const newData = [...deckB];
+          newData.splice(0, 1);
+          setDeckB(newData);
+          setFadeReversedCard(false);
+        }, 350);
+      }
     } else if (result === "B") {
-      setFadeCard(true);
-      setTimeout(() => {
-        const newData = [...deckA];
-        newData.splice(0, 1);
-        setDeckA(newData);
-        setFadeCard(false);
-      }, 350);
+      if (role === "battlerA") {
+        setFadeReversedCard(true);
+        setTimeout(() => {
+          const newData = [...deckB];
+          newData.splice(0, 1);
+          setDeckB(newData);
+          setFadeReversedCard(false);
+        }, 350);
+      } else if (role === "battlerB") {
+        setFadeCard(true);
+        setTimeout(() => {
+          const newData = [...deckA];
+          newData.splice(0, 1);
+          setDeckA(newData);
+          setFadeCard(false);
+        }, 350);
+      }
+
     }
 
   }, [resultEventCounter]);
 
   useEffect(() => {
-    if (deckA.length == 0) {
-      //手前側の勝ち
-      if (role === 'battlerA') {
-        setWinner(roomData.auserName);
-      } else if (role === "battlerB") {
-        setWinner(roomData.buserName);
+    if (deckA && deckB) {
+
+      if (deckA.length == 0) {
+        //手前側の勝ち
+        if (role === 'battlerA') {
+          setWinner(roomData.auserName);
+        } else if (role === "battlerB") {
+          setWinner(roomData.buserName);
+        }
+        setShowModal(true);
+        return;
       }
-      setShowModal(true);
-      return;
-    }
-    if (deckB.length == 0) {
-      //奥側の勝ち
-      if (role === 'battlerA') {
-        setWinner(roomData.buserName);
-      } else if (role === "battlerB") {
-        setWinner(roomData.auserName);
+      if (deckB.length == 0) {
+        //奥側の勝ち
+        if (role === 'battlerA') {
+          setWinner(roomData.buserName);
+        } else if (role === "battlerB") {
+          setWinner(roomData.auserName);
+        }
+        setShowModal(true);
+        return;
       }
-      setShowModal(true);
-      return;
     }
 
   }, [deckA, deckB]);

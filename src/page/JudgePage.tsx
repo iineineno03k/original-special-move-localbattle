@@ -16,8 +16,8 @@ interface Props {
 }
 
 const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGallary }) => {
-    const [deckA, setDeckA] = useState<SpecialMoveDeckDto[]>([]);
-    const [deckB, setDeckB] = useState<SpecialMoveDeckDto[]>([]);
+    const [deckA, setDeckA] = useState<SpecialMoveDeckDto[] | undefined>();
+    const [deckB, setDeckB] = useState<SpecialMoveDeckDto[] | undefined>();
     const [loading, setLoading] = useState(true);
     const [fadeCard, setFadeCard] = useState(false);
     const [fadeReversedCard, setFadeReversedCard] = useState(false);
@@ -82,16 +82,18 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
     }, []);
 
     useEffect(() => {
-        if (deckA.length == 0) {
-            setWinner(roomData.buserName);
-            setShowModal(true);
-            return;
-        }
+        if (deckA && deckB) {
+            if (deckA.length == 0) {
+                setWinner(roomData.buserName);
+                setShowModal(true);
+                return;
+            }
 
-        if (deckB.length == 0) {
-            setWinner(roomData.auserName);
-            setShowModal(true);
-            return;
+            if (deckB.length == 0) {
+                setWinner(roomData.auserName);
+                setShowModal(true);
+                return;
+            }
         }
 
     }, [deckA, deckB]);
