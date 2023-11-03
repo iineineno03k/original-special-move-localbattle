@@ -94,7 +94,7 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
                 setLoading(false);
             }
         })
-    }, [specialMoveDecks]);
+    }, []);
 
     useEffect(() => {
         if (deckA.length == 0) {
