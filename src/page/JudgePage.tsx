@@ -12,10 +12,10 @@ interface Props {
     idToken: string
     roomData: RoomDto
     specialMoveDecks: SpecialMoveDecks
+    myGallary: SpecialMoveDto[]
 }
 
-const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => {
-    const [myGallary, setMyGallary] = useState<SpecialMoveDto[]>([]);
+const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGallary }) => {
     const [deckA, setDeckA] = useState<SpecialMoveDeckDto[]>([]);
     const [deckB, setDeckB] = useState<SpecialMoveDeckDto[]>([]);
     const [loading, setLoading] = useState(true);
@@ -24,7 +24,6 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
     const [showModal, setShowModal] = useState(false);
     const [winner, setWinner] = useState<string>('');
 
-    const gallaryApiUrl = 'https://original-specialmove.onrender.com/get-specialmove';
     const judgeApiUrl = 'https://original-specialmove.onrender.com/judge/' + roomData.roomCode
 
     const handleWinFromCard = async () => {
@@ -79,21 +78,7 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
         console.log("デッキAの内容は" + deckA);
         console.log("デッキBの内容は" + deckB);
 
-        const formData = new FormData();
-        formData.append('idToken', idToken);
-
-        (async () => {
-            try {
-                const response = await fetch(gallaryApiUrl, { method: 'POST', body: formData });
-                const data = await response.json();
-                setMyGallary(data);
-            } catch (error) {
-                console.error('必殺技取得エラー:', error);
-            } finally {
-                console.log("あなたはjudgerです2");
-                setLoading(false);
-            }
-        })
+        setLoading(false);
     }, []);
 
     useEffect(() => {

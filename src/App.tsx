@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
-import { RoomDto, SpecialMoveDeckDto, SpecialMoveDecks } from "./types";
+import { RoomDto, SpecialMoveDeckDto, SpecialMoveDecks, SpecialMoveDto } from "./types";
 import { BrowserRouter as Router } from 'react-router-dom';
 import HomePage from "./page/HomePage";
 import JudgePage from "./page/JudgePage";
@@ -20,6 +20,7 @@ function App() {
   const [specialMoveDecks, setSpecialMoveDecks] = useState<SpecialMoveDecks>({});
   const [judgeResult, setJudgeResult] = useState<"A" | "B" | null>(null);
   const [resultEventCounter, setResultEventCounter] = useState(0);
+  const [myGallary, setMyGallary] = useState<SpecialMoveDto[]>([]);
 
   // roomCodeをURLパラメータから取得
   const urlParams = new URLSearchParams(window.location.search);
@@ -31,6 +32,7 @@ function App() {
   const judgerApiUrl = 'https://original-specialmove.onrender.com/rooms/judger'
   const deckApiUrl = 'https://original-specialmove.onrender.com/get-specialmove-deck';
   const getDeckUrl = 'https://original-specialmove.onrender.com/get-deck-localbattle/' + roomCode
+  const gallaryApiUrl = 'https://original-specialmove.onrender.com/get-specialmove';
 
   const handleShare = () => {
     const url = "https://liff.line.me/2001116233-Xw8xde2q?roomCode=" + roomCode
@@ -210,6 +212,14 @@ function App() {
 
       (async () => {
         try {
+          if (role === 'judger') {
+            const formData = new FormData();
+            formData.append('idToken', idToken);
+            const responseGallary = await fetch(gallaryApiUrl, { method: 'POST', body: formData });
+            const dataGallary = await responseGallary.json();
+            console.log(dataGallary);
+            setMyGallary(dataGallary);
+          }
           const response = await fetch(getDeckUrl);
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -239,7 +249,7 @@ function App() {
   const renderPage = () => {
     switch (view) {
       case "judge":
-        return <JudgePage idToken={idToken} roomData={roomData} specialMoveDecks={specialMoveDecks} />;
+        return <JudgePage idToken={idToken} roomData={roomData} specialMoveDecks={specialMoveDecks} myGallary={myGallary} />;
       case "watch":
         return <WatchPage roomData={roomData} role={role} specialMoveDecks={specialMoveDecks} result={judgeResult} resultEventCounter={resultEventCounter} />;
       case "main":
