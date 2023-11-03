@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { RoomDto, SpecialMoveDeckDto, SpecialMoveDto } from '../types'
+import { RoomDto, SpecialMoveDecks } from '../types'
 import liff from '@line/liff'
 import { motion } from 'framer-motion'
 import SpecialMoveCardWatch from '../component/SpecialMoveCardWatch'
@@ -10,7 +10,7 @@ import StarIcon from '@mui/icons-material/Star';
 interface Props {
   roomData: RoomDto
   role: string
-  specialMoveDecks: Record<string, SpecialMoveDeckDto[]>
+  specialMoveDecks: SpecialMoveDecks
   result: string
   resultEventCounter: number;
 }
@@ -40,9 +40,11 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
     if (role === "battlerA") {
       setDeckA(specialMoveDecks[roomData.buserName])
       setDeckB(specialMoveDecks[roomData.auserName]);
+      console.log("あなたはbattlerAです")
     } else if (role === "battlerB") {
       setDeckA(specialMoveDecks[roomData.auserName])
       setDeckB(specialMoveDecks[roomData.buserName]);
+      console.log("あなたはbattlerBです")
     }
 
   }, []);

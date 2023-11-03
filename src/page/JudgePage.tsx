@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { RoomDto, SpecialMoveDeckDto, SpecialMoveDto } from '../types';
+import { RoomDto, SpecialMoveDeckDto, SpecialMoveDecks, SpecialMoveDto } from '../types';
 import { TailSpin } from 'react-loader-spinner';
 import { motion } from 'framer-motion';
 import SpecialMoveCard from '../component/SpecialMoveCard';
@@ -11,7 +11,7 @@ import liff from '@line/liff';
 interface Props {
     idToken: string
     roomData: RoomDto
-    specialMoveDecks: Record<string, SpecialMoveDeckDto[]>
+    specialMoveDecks: SpecialMoveDecks
 }
 
 const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => {
@@ -84,6 +84,7 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
             } catch (error) {
                 console.error('必殺技取得エラー:', error);
             } finally {
+                console.log("あなたはjudgerです")
                 setLoading(false);
             }
         })

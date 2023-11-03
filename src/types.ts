@@ -33,3 +33,7 @@ export interface SpecialMoveDto {
     winCount: number;
     loseCount: number;
 }
+
+export interface SpecialMoveDecks {
+    [key: string]: SpecialMoveDeckDto[];
+}

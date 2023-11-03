@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
-import { RoomDto, SpecialMoveDeckDto } from "./types";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { RoomDto, SpecialMoveDeckDto, SpecialMoveDecks } from "./types";
+import { BrowserRouter as Router } from 'react-router-dom';
 import HomePage from "./page/HomePage";
 import JudgePage from "./page/JudgePage";
 import WatchPage from "./page/WatchPage";
 
 function App() {
-  const [roomData, setRoomData] = useState<RoomDto>(null);
+  const [roomData, setRoomData] = useState<RoomDto | null>(null);
   const [role, setRole] = useState<"judger" | "battlerA" | "battlerB" | null>(null);
   const [idToken, setIdToken] = useState('');
   const [myName, setMyName] = useState('');
@@ -17,8 +17,8 @@ function App() {
   const [errorDialogMessage, setErrorDialogMessage] = useState<string>('');
   const [isNotFoundDialogOpen, setNotFoundDialogOpen] = useState(false);
   const [view, setView] = useState<"main" | "judge" | "watch">("main");
-  const [specialMoveDecks, setSpecialMoveDecks] = useState({});
-  const [judgeResult, setJudgeResult] = useState<"A" | "B">(null);
+  const [specialMoveDecks, setSpecialMoveDecks] = useState<SpecialMoveDecks>({});
+  const [judgeResult, setJudgeResult] = useState<"A" | "B" | null>(null);
   const [resultEventCounter, setResultEventCounter] = useState(0);
 
   // roomCodeをURLパラメータから取得
@@ -141,9 +141,8 @@ function App() {
 
       const token = liff.getIDToken();
       setIdToken(token);
-      const name = liff.getProfile().then(profile => {
-        setMyName(profile.displayName);
-      })
+      const profile = await liff.getProfile();
+      setMyName(profile.displayName);
 
 
       const formData = new FormData();
@@ -212,6 +211,7 @@ function App() {
       (async () => {
         const response = await fetch(getDeckUrl);
         if (!response.ok) {
+          console.log("対戦者のデッキを取得できませんでした。")
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
@@ -219,8 +219,10 @@ function App() {
       });
 
       if (role === 'judger') {
+        console.log("viewがjudgeになります")
         setView('judge');
       } else if (role === 'battlerA' || role === 'battlerB') {
+        console.log("viewがwatchになります")
         setView('watch');
       }
       setLoading(false);
