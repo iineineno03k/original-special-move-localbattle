@@ -73,8 +73,12 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
     };
 
     useEffect(() => {
+        console.log("あなたはjudgerです")
         setDeckA(specialMoveDecks[roomData.auserName]);
         setDeckB(specialMoveDecks[roomData.buserName]);
+        console.log("デッキAの内容は" + deckA);
+        console.log("デッキBの内容は" + deckB);
+
         const formData = new FormData();
         formData.append('idToken', idToken);
 
@@ -86,10 +90,8 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks }) => 
             } catch (error) {
                 console.error('必殺技取得エラー:', error);
             } finally {
-                console.log("あなたはjudgerです")
+                console.log("あなたはjudgerです2");
                 setLoading(false);
-                console.log("デッキAの内容は" + deckA);
-                console.log("デッキBの内容は" + deckB);
             }
         })
     }, [specialMoveDecks]);

@@ -41,7 +41,6 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
       setDeckA(specialMoveDecks[roomData.buserName])
       setDeckB(specialMoveDecks[roomData.auserName]);
       console.log("あなたはbattlerAです")
-      console.log
     } else if (role === "battlerB") {
       setDeckA(specialMoveDecks[roomData.auserName])
       setDeckB(specialMoveDecks[roomData.buserName]);
