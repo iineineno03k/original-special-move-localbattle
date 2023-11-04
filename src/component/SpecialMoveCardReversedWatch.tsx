@@ -16,13 +16,31 @@ const SpecialMoveCardReversedWatch: React.FC<Props> = ({ data }) => {
 
     return (
         <Box flexDirection="column" alignItems="start">
-            <Card sx={{ mb: 2, position: 'relative' }}>
-                <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
+            <Card
+                sx={{
+                    mb: 2,
+                    width: '340px',
+                    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    border: '1px solid rgba(0, 0, 0, 0.12)',
+                    transition: '0.3s',
+                    '&:hover': {
+                        boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.2)',
+                        transform: 'translateY(-2px)',
+                    },
+                    position: 'relative',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <Box display="flex" flexDirection="row" alignItems="center">
                     <CardContent>
-                        <Typography variant="caption" display="block" sx={{ mt: 2 }}>
+                        <Typography gutterBottom variant="caption" display="block" textAlign="center" sx={{ mt: 2.5 }}>
                             {data.furigana}
                         </Typography>
-                        <Typography variant="h5" component="div">
+                        <Typography gutterBottom variant="h5" component="div" textAlign={'center'}>
                             {data.spName}
                         </Typography>
                     </CardContent>
@@ -31,7 +49,9 @@ const SpecialMoveCardReversedWatch: React.FC<Props> = ({ data }) => {
                         sx={{
                             width: 150,
                             height: 150,
-                            objectFit: 'cover'
+                            objectFit: 'cover',
+                            borderRadius: '8px',
+                            mr: 1.5
                         }}
                         image={data.imageName}
                         alt={data.spName}

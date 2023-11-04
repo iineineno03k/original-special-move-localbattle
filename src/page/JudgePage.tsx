@@ -98,6 +98,28 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
 
     }, [deckA, deckB]);
 
+    const vsContainerStyle: React.CSSProperties = {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center', // 中央に寄せる
+        width: '100%', // コンテナを親の幅いっぱいに広げる
+    };
+
+    const vsTextStyle: React.CSSProperties = {
+        fontSize: '48px',
+        fontWeight: 'bold',
+        color: '#3A3A3C',
+        textShadow: '2px 2px 4px #222224',
+        margin: '0 20px', // テキストの左右のマージン
+    };
+
+    const barStyle: React.CSSProperties = {
+        height: '4px',
+        flex: 1, // バーを可能な限りの幅に拡張
+        background: 'linear-gradient(to right, #000000, #555555, #000000)',
+        boxShadow: '0px 0px 10px 3px rgba(255, 0, 0, 0.6)',
+    };
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', justifyContent: 'center' }}>
             {loading ? (
@@ -125,7 +147,11 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
                             <SpecialMoveCard key={deckA[0].id} myGallary={myGallary} data={deckA[0]} idToken={idToken} onWin={handleWinFromCard} />
                         </motion.div>
                     )}
-                    <div style={{ fontSize: '24px', fontWeight: 'bold', backgroundColor: 'white', borderRadius: '50%', padding: '10px 20px', margin: '20px 0', textAlign: 'center' }}>VS</div>
+                    <div style={vsContainerStyle}>
+                        <div style={barStyle}></div>
+                        <div style={vsTextStyle}>VS</div>
+                        <div style={barStyle}></div>
+                    </div>
                     {deckB.length > 0 && (
                         <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
                             <SpecialMoveCardReversed key={deckB[0].id} myGallary={myGallary} data={deckB[0]} idToken={idToken} onWin={handleWinFromReversedCard} />
