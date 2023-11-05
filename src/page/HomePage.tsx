@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography } from '@mui/material';
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography, ButtonGroup, Paper, useTheme } from '@mui/material';
 import { TailSpin } from "react-loader-spinner";
 import { RoomDto } from '../types';
+import "./App.css";
 
 interface MainPageProps {
     handleShare: () => void;
@@ -17,7 +18,8 @@ interface MainPageProps {
     myName: string
 }
 
-const HomePage: React.FC<MainPageProps> = ({ handleShare,
+const HomePage = ({
+    handleShare,
     handleJoinBattle,
     handleJudge,
     loading,
@@ -27,105 +29,82 @@ const HomePage: React.FC<MainPageProps> = ({ handleShare,
     closeErrorDialog,
     closeNotFoundDialog,
     roomData,
-    myName }) => {
+    myName
+}: MainPageProps) => {
+    const checked = roomData && ["auserName", "buserName", "judgeUserName"].some((key) => roomData[key] === myName);
+    const theme = useTheme();
 
-    const checked = roomData && ["auserName", "buserName", "judgeUserName"].some((key) => {
-        const name = roomData[key];
-        return name === myName;
-    });
 
     return (
-        loading ? (
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100vh'
-            }}>
-                <TailSpin
-                    height={80}
-                    width={80}
-                    color="#4fa94d"
-                    ariaLabel="tail-spin-loading"
-                    radius={1}
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={loading}
-                />
-            </div>
-        ) : (
-            <Container maxWidth="sm" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '80vh', gap: 2 }}>
-                <Button
-                    variant="outlined"
-                    sx={{ backgroundColor: 'rgba(0, 0, 0, 0.09)', '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.12)' } }}
-                    onClick={handleShare}>
-                    友達を誘う
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleJoinBattle}
-                    disabled={checked}>
-                    バトルに参加する
-                </Button>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleJudge}
-                    disabled={checked}>
-                    ジャッジを行う
-                </Button>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <Typography variant="h6" textAlign={"center"} gutterBottom>
-                            {roomData.auserName || '募集中'} VS {roomData.buserName || '募集中'}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="subtitle1" textAlign={"center"}>
-                            ジャッジ：{roomData.judgeUserName || '募集中'}
-                        </Typography>
-                    </Grid>
-                </Grid>
-
-                <Dialog
-                    open={isErrorDialogOpen}
-                    onClose={closeErrorDialog}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">エラー</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            {errorDialogMessage}
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={closeErrorDialog} color="primary" autoFocus>
-                            OK
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-
-                <Dialog
-                    open={isNotFoundDialogOpen}
-                    onClose={closeNotFoundDialog}
-                    aria-labelledby="not-found-dialog-title"
-                >
-                    <DialogTitle id="not-found-dialog-title">エラー</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Roomが見つかりませんでした。
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={closeNotFoundDialog} color="primary" autoFocus>
-                            アプリを閉じる
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            </Container>
-        )
+        <Container maxWidth="sm" sx={{ pt: theme.spacing(10), pb: theme.spacing(10), display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+            {loading && (
+                <div className="overlay">
+                    <TailSpin
+                        height={80}
+                        width={80}
+                        color={theme.palette.primary.main}
+                        ariaLabel="tail-spin-loading"
+                        radius={1}
+                        visible={true}
+                    />
+                </div>
+            )}
+            {!loading && (
+                <Paper elevation={3} sx={{ p: theme.spacing(4), width: '100%', mb: theme.spacing(2), textAlign: 'center' }}>
+                    <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+                        対戦ルーム
+                    </Typography>
+                    <Typography variant="subtitle1" sx={{ mb: theme.spacing(2) }}>
+                        {roomData.auserName || '募集中'} VS {roomData.buserName || '募集中'}
+                    </Typography>
+                    <Typography variant="subtitle2" sx={{ mb: theme.spacing(3) }}>
+                        ジャッジ：{roomData.judgeUserName || '募集中'}
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleJoinBattle}
+                        disabled={checked}
+                        sx={{ mb: theme.spacing(1) }}
+                    >
+                        バトルに参加する
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleJudge}
+                        disabled={checked}
+                    >
+                        ジャッジを行う
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        sx={{ mt: theme.spacing(2) }}
+                        onClick={handleShare}
+                    >
+                        友達を誘う
+                    </Button>
+                </Paper>
+            )}
+            <Dialog open={isErrorDialogOpen} onClose={closeErrorDialog}>
+                <DialogTitle>エラー</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>{errorDialogMessage}</DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeErrorDialog} color="primary">OK</Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog open={isNotFoundDialogOpen} onClose={closeNotFoundDialog}>
+                <DialogTitle>エラー</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>Roomが見つかりませんでした。</DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeNotFoundDialog} color="primary">アプリを閉じる</Button>
+                </DialogActions>
+            </Dialog>
+        </Container>
     );
 }
 

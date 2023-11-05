@@ -6,6 +6,7 @@ import SpecialMoveCardWatch from '../component/SpecialMoveCardWatch'
 import SpecialMoveCardReversedWatch from '../component/SpecialMoveCardReversedWatch'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star';
+import "./App.css";
 
 interface Props {
   roomData: RoomDto
@@ -144,52 +145,54 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', justifyContent: 'center' }}>
-      {deckA?.length > 0 && (
-        <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
-          <SpecialMoveCardWatch key={deckA[0].id} data={deckA[0]} />
-        </motion.div>
-      )}
-      <div style={vsContainerStyle}>
-        <div style={barStyle}></div>
-        <div style={vsTextStyle}>VS</div>
-        <div style={barStyle}></div>
-      </div>
-      {deckB?.length > 0 && (
-        <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
-          <SpecialMoveCardReversedWatch key={deckB[0].id} data={deckB[0]} />
-        </motion.div>
-      )}
+    <div className="rootContainer">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', justifyContent: 'center' }}>
+        {deckA?.length > 0 && (
+          <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
+            <SpecialMoveCardWatch key={deckA[0].id} data={deckA[0]} />
+          </motion.div>
+        )}
+        <div style={vsContainerStyle}>
+          <div style={barStyle}></div>
+          <div style={vsTextStyle}>VS</div>
+          <div style={barStyle}></div>
+        </div>
+        {deckB?.length > 0 && (
+          <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
+            <SpecialMoveCardReversedWatch key={deckB[0].id} data={deckB[0]} />
+          </motion.div>
+        )}
 
-      <Dialog open={showWinModal} onClose={() => setShowWinModal(false)}>
-        <DialogTitle>🎉 おめでとうございます！ 🎉</DialogTitle>
-        <DialogContent>
-          <Typography variant="h6" align="center" gutterBottom>
-            勝者は <span style={{ color: 'gold' }}>{winner}</span> さんです！
-            <StarIcon color="primary" fontSize="large" style={{ margin: '0 10px' }} />
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            閉じる
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog open={showLoseModal} onClose={() => setShowLoseModal(false)}>
-        <DialogTitle>残念・・・</DialogTitle>
-        <DialogContent>
-          <Typography variant="h6" align="center" gutterBottom>
-            勝者は <span style={{ color: 'gold' }}>{winner}</span> さんです・・・
-            <StarIcon color="primary" fontSize="large" style={{ margin: '0 10px' }} />
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            閉じる
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div >
+        <Dialog open={showWinModal} onClose={() => setShowWinModal(false)}>
+          <DialogTitle>🎉 おめでとうございます！ 🎉</DialogTitle>
+          <DialogContent>
+            <Typography variant="h6" align="center" gutterBottom>
+              勝者は <span style={{ color: 'gold' }}>{winner}</span> さんです！
+              <StarIcon color="primary" fontSize="large" style={{ margin: '0 10px' }} />
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              閉じる
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={showLoseModal} onClose={() => setShowLoseModal(false)}>
+          <DialogTitle>残念・・・</DialogTitle>
+          <DialogContent>
+            <Typography variant="h6" align="center" gutterBottom>
+              勝者は <span style={{ color: 'gold' }}>{winner}</span> さんです・・・
+              <StarIcon color="primary" fontSize="large" style={{ margin: '0 10px' }} />
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              閉じる
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div >
+    </div>
   )
 }
 
