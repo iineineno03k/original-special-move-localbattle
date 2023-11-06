@@ -4,10 +4,10 @@ import { TailSpin } from 'react-loader-spinner';
 import { motion } from 'framer-motion';
 import SpecialMoveCard from '../component/SpecialMoveCard';
 import SpecialMoveCardReversed from '../component/SpecialMoveCardReversed';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import liff from '@line/liff';
-import "./App.css";
+import "../App.css";
 
 interface Props {
     idToken: string
@@ -140,6 +140,11 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
                     <>
                         {deckA.length > 0 && (
                             <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
+                                <Box textAlign={"left"} >
+                                    <Typography>
+                                        残: {deckA.length}枚
+                                    </Typography>
+                                </Box>
                                 <SpecialMoveCard key={deckA[0].id} myGallary={myGallary} data={deckA[0]} idToken={idToken} onWin={handleWinFromCard} />
                             </motion.div>
                         )}
@@ -151,6 +156,12 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
                         {deckB.length > 0 && (
                             <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
                                 <SpecialMoveCardReversed key={deckB[0].id} myGallary={myGallary} data={deckB[0]} idToken={idToken} onWin={handleWinFromReversedCard} />
+                                <Box textAlign={"right"} >
+                                    <Typography>
+                                        残: {deckB.length}枚
+                                    </Typography>
+                                </Box>
+
                             </motion.div>
                         )}
                         <Dialog open={showModal} onClose={() => setShowModal(false)}>

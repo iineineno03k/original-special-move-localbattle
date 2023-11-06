@@ -4,9 +4,9 @@ import liff from '@line/liff'
 import { motion } from 'framer-motion'
 import SpecialMoveCardWatch from '../component/SpecialMoveCardWatch'
 import SpecialMoveCardReversedWatch from '../component/SpecialMoveCardReversedWatch'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star';
-import "./App.css";
+import "../App.css";
 
 interface Props {
   roomData: RoomDto
@@ -149,6 +149,11 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh', justifyContent: 'center' }}>
         {deckA?.length > 0 && (
           <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
+            <Box textAlign={"left"} >
+              <Typography>
+                残: {deckA.length}枚
+              </Typography>
+            </Box>
             <SpecialMoveCardWatch key={deckA[0].id} data={deckA[0]} />
           </motion.div>
         )}
@@ -160,6 +165,11 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
         {deckB?.length > 0 && (
           <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
             <SpecialMoveCardReversedWatch key={deckB[0].id} data={deckB[0]} />
+            <Box textAlign={"right"} >
+              <Typography>
+                残: {deckB.length}枚
+              </Typography>
+            </Box>
           </motion.div>
         )}
 

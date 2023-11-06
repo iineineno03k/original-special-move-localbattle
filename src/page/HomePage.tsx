@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography, ButtonGroup, Paper, useTheme } from '@mui/material';
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography, ButtonGroup, Paper, useTheme, Box } from '@mui/material';
 import { TailSpin } from "react-loader-spinner";
 import { RoomDto } from '../types';
-import "./App.css";
+import "../App.css";
 
 interface MainPageProps {
     handleShare: () => void;
@@ -53,39 +53,42 @@ const HomePage = ({
                 {!loading && (
                     <Paper elevation={3} sx={{ p: theme.spacing(4), width: '100%', mb: theme.spacing(2), textAlign: 'center' }}>
                         <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
-                            対戦ルーム
+                            オレ技対戦部屋
                         </Typography>
                         <Typography variant="subtitle1" sx={{ mb: theme.spacing(2) }}>
-                            {roomData.auserName || '募集中'} VS {roomData.buserName || '募集中'}
+                            {roomData?.auserName || '募集中'} VS {roomData?.buserName || '募集中'}
                         </Typography>
                         <Typography variant="subtitle2" sx={{ mb: theme.spacing(3) }}>
-                            ジャッジ：{roomData.judgeUserName || '募集中'}
+                            審判：{roomData?.judgeUserName || '募集中'}
                         </Typography>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleJoinBattle}
-                            disabled={checked}
-                            sx={{ mb: theme.spacing(1) }}
-                        >
-                            バトルに参加する
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={handleJudge}
-                            disabled={checked}
-                        >
-                            ジャッジを行う
-                        </Button>
+
+                        <Box sx={{ display: 'flex', justifyContent: 'center', gap: theme.spacing(2), mb: theme.spacing(2) }}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleJoinBattle}
+                                disabled={checked}
+                            >
+                                対戦に参加
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={handleJudge}
+                                disabled={checked}
+                            >
+                                審判を行う
+                            </Button>
+                        </Box>
+
                         <Button
                             variant="outlined"
-                            sx={{ mt: theme.spacing(2) }}
                             onClick={handleShare}
                         >
                             友達を誘う
                         </Button>
                     </Paper>
+
                 )}
                 <Dialog open={isErrorDialogOpen} onClose={closeErrorDialog}>
                     <DialogTitle>エラー</DialogTitle>
