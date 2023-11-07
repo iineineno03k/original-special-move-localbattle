@@ -189,10 +189,11 @@ function App() {
     // 初期のRoomデータをAPIから取得
     const fetchInitialRoomData = async () => {
       const response = await fetch(roomApiUrl);
+      console.log(roomCode);
       if (response.status === 404) {
         console.error('Room not found.');
+        setNotFoundDialogOpen(true);
         setLoading(false);
-        //setNotFoundDialogOpen(true);
         return;
       }
       const data = await response.json();
