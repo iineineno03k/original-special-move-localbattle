@@ -24,6 +24,7 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
     const [fadeReversedCard, setFadeReversedCard] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [winner, setWinner] = useState<string>('');
+    const [myId, setMyId] = useState<string>('');
 
     const judgeApiUrl = 'https://original-specialmove.onrender.com/judge/' + roomData.roomCode
 
@@ -76,8 +77,14 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
         console.log("あなたはjudgerです")
         setDeckA(specialMoveDecks[roomData.auserName]);
         setDeckB(specialMoveDecks[roomData.buserName]);
-        console.log("デッキAの内容は" + deckA);
-        console.log("デッキBの内容は" + deckB);
+        async () => {
+            try {
+                const profile = await liff.getProfile();
+                setMyId(profile.userId);
+            } catch (err) {
+                console.log("error", err);
+            }
+        }
 
         setLoading(false);
     }, []);
@@ -145,7 +152,7 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
                                         残: {deckA.length}枚
                                     </Typography>
                                 </Box>
-                                <SpecialMoveCard key={deckA[0].id} myGallary={myGallary} data={deckA[0]} idToken={idToken} onWin={handleWinFromCard} />
+                                <SpecialMoveCard key={deckA[0].id} myGallary={myGallary} data={deckA[0]} idToken={idToken} onWin={handleWinFromCard} myId={myId} />
                             </motion.div>
                         )}
                         <div style={vsContainerStyle}>
@@ -155,7 +162,7 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
                         </div>
                         {deckB.length > 0 && (
                             <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
-                                <SpecialMoveCardReversed key={deckB[0].id} myGallary={myGallary} data={deckB[0]} idToken={idToken} onWin={handleWinFromReversedCard} />
+                                <SpecialMoveCardReversed key={deckB[0].id} myGallary={myGallary} data={deckB[0]} idToken={idToken} onWin={handleWinFromReversedCard} myId={myId} />
                                 <Box textAlign={"right"}>
                                     <Typography style={{ color: 'white' }}>
                                         残: {deckB.length}枚

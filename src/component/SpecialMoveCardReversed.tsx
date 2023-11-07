@@ -19,11 +19,13 @@ interface Props {
     data: SpecialMoveDto;
     idToken: string;
     onWin: () => void;
+    myId: string
 }
 
-const SpecialMoveCardReversed: React.FC<Props> = ({ myGallary, data, idToken, onWin }) => {
+const SpecialMoveCardReversed: React.FC<Props> = ({ myGallary, data, idToken, onWin, myId }) => {
     const [open, setOpen] = useState(false);
     const isAlreadyFavorited = myGallary.some(item => item.id === data.id);
+    const isMySpecialMove = (data.userId === myId);
     const [favorited, setFavorited] = useState(isAlreadyFavorited);
 
     const favoriteApiUrl = 'https://original-specialmove.onrender.com/regist-gallary';
@@ -78,17 +80,34 @@ const SpecialMoveCardReversed: React.FC<Props> = ({ myGallary, data, idToken, on
                 }}
             >
                 <Box display="flex" flexDirection="row" alignItems="center">
-                    <IconButton
-                        onClick={addFavoriteSp}
-                        disabled={favorited}
-                        sx={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                        }}
-                    >
-                        {favorited ? <FavoriteIcon color="primary" /> : <FavoriteBorderIcon />}
-                    </IconButton>
+                    {
+                        isMySpecialMove ? (
+                            <Typography
+                                sx={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    padding: '1px',
+                                    background: 'rgba(0, 0, 0, 0.5)',
+                                    color: 'white'
+                                }}
+                            >
+                                オレ技
+                            </Typography>
+                        ) : (
+                            <IconButton
+                                onClick={addFavoriteSp}
+                                disabled={favorited}
+                                sx={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                }}
+                            >
+                                {favorited ? <FavoriteIcon color="primary" /> : <FavoriteBorderIcon />}
+                            </IconButton>
+                        )
+                    }
                     <CardContent sx={{ flexGrow: 1, p: 1, minWidth: 0 }}>
                         <Typography gutterBottom variant="caption" display="block" textAlign="center" sx={{ mt: 2.5 }}>
                             {data.furigana}
