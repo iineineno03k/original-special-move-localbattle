@@ -192,7 +192,7 @@ function App() {
       if (response.status === 404) {
         console.error('Room not found.');
         setLoading(false);
-        setNotFoundDialogOpen(true);
+        //setNotFoundDialogOpen(true);
         return;
       }
       const data = await response.json();

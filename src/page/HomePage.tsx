@@ -53,7 +53,7 @@ const HomePage = ({
                 {!loading && (
                     <Paper elevation={3} sx={{ p: theme.spacing(4), width: '100%', mb: theme.spacing(2), textAlign: 'center' }}>
                         <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
-                            オレ技対戦部屋
+                            オレ技対戦会場
                         </Typography>
                         <Typography variant="subtitle1" sx={{ mb: theme.spacing(2) }}>
                             {roomData?.auserName || '募集中'} VS {roomData?.buserName || '募集中'}
