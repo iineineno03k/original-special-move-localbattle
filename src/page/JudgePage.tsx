@@ -141,7 +141,7 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
                         {deckA.length > 0 && (
                             <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
                                 <Box textAlign={"left"}>
-                                    <Typography style={{ color: 'blue' }}>
+                                    <Typography style={{ color: 'white' }}>
                                         残: {deckA.length}枚
                                     </Typography>
                                 </Box>
@@ -157,7 +157,7 @@ const JudgePage: React.FC<Props> = ({ idToken, roomData, specialMoveDecks, myGal
                             <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
                                 <SpecialMoveCardReversed key={deckB[0].id} myGallary={myGallary} data={deckB[0]} idToken={idToken} onWin={handleWinFromReversedCard} />
                                 <Box textAlign={"right"}>
-                                    <Typography style={{ color: 'blue' }}>
+                                    <Typography style={{ color: 'white' }}>
                                         残: {deckB.length}枚
                                     </Typography>
                                 </Box>

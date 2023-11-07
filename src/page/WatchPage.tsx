@@ -150,7 +150,7 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
         {deckA?.length > 0 && (
           <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
             <Box textAlign={"left"} >
-              <Typography style={{ color: 'blue' }}>
+              <Typography style={{ color: 'white' }}>
                 残: {deckA.length}枚
               </Typography>
             </Box>
@@ -166,7 +166,7 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
           <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
             <SpecialMoveCardReversedWatch key={deckB[0].id} data={deckB[0]} />
             <Box textAlign={"right"}>
-              <Typography style={{ color: 'blue' }}>
+              <Typography style={{ color: 'white' }}>
                 残: {deckB.length}枚
               </Typography>
             </Box>
