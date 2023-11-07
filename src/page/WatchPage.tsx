@@ -150,7 +150,7 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
         {deckA?.length > 0 && (
           <motion.div initial="visible" animate={fadeCard ? "hidden" : "visible"} variants={fadeOut}>
             <Box textAlign={"left"} >
-              <Typography>
+              <Typography style={{ color: 'blue' }}>
                 残: {deckA.length}枚
               </Typography>
             </Box>
@@ -165,8 +165,8 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
         {deckB?.length > 0 && (
           <motion.div initial="visible" animate={fadeReversedCard ? "hidden" : "visible"} variants={fadeOut}>
             <SpecialMoveCardReversedWatch key={deckB[0].id} data={deckB[0]} />
-            <Box textAlign={"right"} >
-              <Typography>
+            <Box textAlign={"right"}>
+              <Typography style={{ color: 'blue' }}>
                 残: {deckB.length}枚
               </Typography>
             </Box>
@@ -192,7 +192,6 @@ const WatchPage: React.FC<Props> = ({ roomData, role, specialMoveDecks, result, 
           <DialogContent>
             <Typography variant="h6" align="center" gutterBottom>
               勝者は <span style={{ color: 'gold' }}>{winner}</span> さんです・・・
-              <StarIcon color="primary" fontSize="large" style={{ margin: '0 10px' }} />
             </Typography>
           </DialogContent>
           <DialogActions>
