@@ -1,5 +1,5 @@
 - オレ技メーカーのフロントエンド（LIFF・React/TypeScript）
-- 「オレ技ギャラリー」の画面（リッチメニュー右上部分）
+- 「オレ技対戦」の画面（リッチメニュー右上部分）
 ## オレ技メーカーについて
 - [LINEアカウント登録はこちら](https://line.me/R/ti/p/%40415lutsr)
 - [アプリ説明サイト（ProtoPedia）](https://protopedia.net/prototype/4938)
